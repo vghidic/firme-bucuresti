@@ -5,6 +5,9 @@ build/
 dist/
 wheels/
 *.egg-info
+src/extract_details/.cache*
+dataset/*
+cui.csv
 
 # Virtual environments
 .venv
