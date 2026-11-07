@@ -14,6 +14,7 @@ import requests
 
 TVA_URL = "https://webservicesp.anaf.ro/api/PlatitorTvaRest/v9/tva"
 BILANT_URL = "https://webservicesp.anaf.ro/bilant"
+MIN_ANAF_DELAY = 1.2
 
 FIRME_FIELDS = [
     "cui", "data_interogare", "colectat_la", "status_extragere",
@@ -104,13 +105,19 @@ def read_cuis(path):
 
 
 class Client:
+    last_request = 0.0
+
     def __init__(self, cache_dir, delay):
+        if delay < MIN_ANAF_DELAY:
+            raise ValueError(
+                f"delay-ul pentru cererile ANAF trebuie sa fie de minimum "
+                f"{MIN_ANAF_DELAY} secunde"
+            )
         self.session = requests.Session()
         self.session.headers["User-Agent"] = "ResearchCompanyDataset/1.0"
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.delay = delay
-        self.last_request = 0.0
 
     def get_json(self, method, url, *, payload=None, params=None):
         identity = json.dumps(
@@ -124,10 +131,12 @@ class Client:
             return json.loads(cache_file.read_text(encoding="utf-8"))
 
         for attempt in range(6):
-            wait = self.delay - (time.monotonic() - self.last_request)
+            wait = self.delay - (
+                time.monotonic() - self.__class__.last_request
+            )
             if wait > 0:
                 time.sleep(wait)
-            self.last_request = time.monotonic()
+            self.__class__.last_request = time.monotonic()
 
             try:
                 if method == "GET":
@@ -265,8 +274,10 @@ def main():
         parser.error("--only-balance necesita cel putin un an in --years")
     if not 1 <= args.batch_size <= 100:
         parser.error("--batch-size trebuie sa fie intre 1 si 100")
-    if args.delay < 0.2:
-        parser.error("--delay trebuie sa fie de minimum 0.2 secunde")
+    if args.delay < MIN_ANAF_DELAY:
+        parser.error(
+            f"--delay trebuie sa fie de minimum {MIN_ANAF_DELAY} secunde"
+        )
     if args.start_index < 0:
         parser.error("--start-index nu poate fi negativ")
     if args.limit is not None and args.limit < 1:

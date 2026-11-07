@@ -9,6 +9,7 @@ import requests
 from extract_details_for_cui import (
     FIRME_FIELDS,
     Client,
+    MIN_ANAF_DELAY,
     TVA_URL,
     flatten_company,
     normalize_cui,
@@ -33,8 +34,10 @@ def main():
 
     if not 1 <= args.batch_size <= 100:
         parser.error("--batch-size trebuie sa fie intre 1 si 100")
-    if args.delay < 0.2:
-        parser.error("--delay trebuie sa fie de minimum 0.2 secunde")
+    if args.delay < MIN_ANAF_DELAY:
+        parser.error(
+            f"--delay trebuie sa fie de minimum {MIN_ANAF_DELAY} secunde"
+        )
     if args.start_index < 0:
         parser.error("--start-index nu poate fi negativ")
     if args.limit is not None and args.limit < 1:
