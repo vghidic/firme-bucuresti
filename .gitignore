@@ -8,6 +8,9 @@ wheels/
 src/extract_details/.cache*
 dataset/*
 cui.csv
+uv.lock
+*.zip
+postgres.dump
 
 # Virtual environments
 .venv
