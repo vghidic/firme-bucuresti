@@ -20,9 +20,9 @@ Construim un set tabelar cu firmele din municipiul București cu profilul firmei
 | Sursă                                                                                          | Conținut                          | Dimensiune                                               |
 | ---------------------------------------------------------------------------------------------- | --------------------------------- | -------------------------------------------------------- |
 | [totalfirme.ro](https://www.totalfirme.ro) (listă `/judet-BUCUREȘTI`), `src/scrape_totalfirme` | doar lista de CUI-uri             | 445.759 CUI                                              |
-| [ANAF — API Plătitor TVA](https://webservicesp.anaf.ro) (`src/extract_details`)                | profilul firmei (`firme.csv`)     | 445.759 rânduri, ~165 MB CSV                             |
-| [data.gov.ro — Situații financiare (Min. Finanțelor)](https://data.gov.ro)                     | bilanțuri anuale, 2008–2025       | ~147 MB; ~407.000 rânduri CUI-an în fișierele `BL_BS_SL` |
-| ANAF — API bilanț (opțional, completări)                                                       | indicatori pentru un CUI și un an | variabilă                                                |
+| [ANAF API Plătitor TVA](https://webservicesp.anaf.ro) (`src/extract_details`)                  | profilul firmei (`firme.csv`)     | 445.759 rânduri, ~165 MB CSV                             |
+| [data.gov.ro Situații financiare (Min. Finanțelor)](https://data.gov.ro)                       | bilanțuri anuale, 2008–2025       | ~147 MB; ~407.000 rânduri CUI-an în fișierele `BL_BS_SL` |
+| ANAF API bilanț (opțional, completări)                                                         | indicatori pentru un CUI și un an | variabilă                                                |
 
 Limitări: numărul de rânduri pe an scade de la ~71.000 (2014) la ~7–10.000 (2015+) în fișierele de bilanț, urmează să verificăm dacă e o diferență reală de acoperire sau un efect al sursei/filtrării.
 
