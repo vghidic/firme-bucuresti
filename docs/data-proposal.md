@@ -1,7 +1,6 @@
 # Data proposal — Firme din București
 
 **Echipa:** Oprea Marina, Ghidic Vladislav, Suciu Delia Bianca, Stoian Robert Alin
-**Eșantion:** [`sample/firme_sample.csv`](../sample/firme_sample.csv) (30 rânduri) și [`sample/bilanturi_2024_sample.csv`](../sample/bilanturi_2024_sample.csv) (aceleași 30 de firme, bilanț 2024).
 
 ## 1. De ce acest dataset?
 
