@@ -11,6 +11,7 @@ from extract_details_for_cui import (
     BILANT_INDICATOR_FIELDS,
     BILANT_URL,
     Client,
+    MIN_ANAF_DELAY,
     normalize_indicator_name,
 )
 
@@ -54,8 +55,10 @@ def main():
     parser.add_argument("--error-file", default="erori_bilant.csv")
     args = parser.parse_args()
 
-    if args.delay < 0.2:
-        parser.error("--delay trebuie sa fie de minimum 0.2 secunde")
+    if args.delay < MIN_ANAF_DELAY:
+        parser.error(
+            f"--delay trebuie sa fie de minimum {MIN_ANAF_DELAY} secunde"
+        )
     if args.start_index < 0:
         parser.error("--start-index nu poate fi negativ")
     if args.limit is not None and args.limit < 1:
