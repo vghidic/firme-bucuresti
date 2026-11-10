@@ -1,4 +1,4 @@
-# Data proposal — Firme din București
+# Firme din București
 
 **Echipa:** Oprea Marina, Ghidic Vladislav, Suciu Delia Bianca, Stoian Robert Alin
 
